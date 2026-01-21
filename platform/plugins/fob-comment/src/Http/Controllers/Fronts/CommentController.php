@@ -1,0 +1,133 @@
+<?php
+
+namespace FriendsOfBotble\Comment\Http\Controllers\Fronts;
+
+use Botble\Base\Http\Controllers\BaseController;
+use Botble\Base\Models\BaseModel;
+use Botble\Base\Supports\Helper;
+use FriendsOfBotble\Comment\Actions\CreateNewComment;
+use FriendsOfBotble\Comment\Actions\GetCommentReference;
+use FriendsOfBotble\Comment\Enums\CommentStatus;
+use FriendsOfBotble\Comment\Http\Requests\Fronts\CommentReferenceRequest;
+use FriendsOfBotble\Comment\Http\Requests\Fronts\CommentRequest;
+use FriendsOfBotble\Comment\Models\Comment;
+use FriendsOfBotble\Comment\Support\CommentHelper;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\RateLimiter;
+
+class CommentController extends BaseController
+{
+    public function index(CommentReferenceRequest $request, GetCommentReference $getCommentReference)
+    {
+        $reference = new BaseModel();
+
+        if ($request->input('reference_type')) {
+            $reference = $getCommentReference($request->input('reference_type'), $request->input('reference_id'));
+
+            $query = Comment::query()
+                ->where('reference_id', $reference->getKey())
+                ->where('reference_type', $reference::class);
+        } else {
+            $query = Comment::query()
+                ->where('reference_url', $request->input('reference_url'));
+        }
+
+        $query
+            ->where(function (Builder $query): void {
+                $query
+                    ->where('status', CommentStatus::APPROVED)
+                    ->orWhere(function (Builder $query): void {
+                        $query->where('status', CommentStatus::PENDING)
+                            ->where('ip_address', Helper::getIpFromThirdParty());
+                    });
+            })
+            ->where('reply_to', null)
+            ->with(['author', 'replies', 'replies.author'])
+            ->orderBy('created_at', CommentHelper::getCommentOrder());
+
+        $comments = apply_filters('fob_comment_list_query', $query, $request)->paginate(10);
+
+        $count = CommentHelper::getCommentsCount($reference);
+
+        $view = apply_filters('fob_comment_list_view_path', 'plugins/fob-comment::partials.list');
+
+        return $this
+            ->httpResponse()
+            ->setData([
+                'title' => $count === 1
+                    ? trans('plugins/fob-comment::comment.front.list.title_singular', ['count' => $count])
+                    : trans('plugins/fob-comment::comment.front.list.title_plural', ['count' => $count]),
+                'html' => view($view, compact('comments'))->render(),
+                'comments' => $comments,
+            ]);
+    }
+
+    public function store(
+        CommentRequest $request,
+        CreateNewComment $createNewComment,
+        GetCommentReference $getCommentReference
+    ) {
+        if (CommentHelper::isGuestCommentDisabled() && ! CommentHelper::getAuthorizedUser()) {
+            return $this
+                ->httpResponse()
+                ->setError()
+                ->setMessage(trans('plugins/fob-comment::comment.front.form.login_required'));
+        }
+
+        $rateLimitSeconds = CommentHelper::getRateLimitSeconds();
+
+        if ($rateLimitSeconds > 0) {
+            $key = 'fob-comment:' . Helper::getIpFromThirdParty();
+
+            if (RateLimiter::tooManyAttempts($key, 1)) {
+                $seconds = RateLimiter::availableIn($key);
+
+                return $this
+                    ->httpResponse()
+                    ->setError()
+                    ->setMessage(trans('plugins/fob-comment::comment.front.rate_limit_error', ['seconds' => $seconds]));
+            }
+
+            RateLimiter::hit($key, $rateLimitSeconds);
+        }
+
+        $data = [
+            ...$request->validated(),
+            'reference_url' => $request->input('reference_url') ?? url()->previous(),
+        ];
+
+        $reference = new BaseModel();
+
+        if ($request->input('reference_type')) {
+            $reference = $getCommentReference($request->input('reference_type'), $request->input('reference_id'));
+
+            abort_if($reference->getMetaData('allow_comments', true) == '0', 404);
+        }
+
+        $createNewComment($reference, $data);
+
+        return $this
+            ->httpResponse()
+            ->setMessage(trans('plugins/fob-comment::comment.front.comment_success_message'));
+    }
+
+    public function destroy(Comment $comment)
+    {
+        abort_unless(CommentHelper::isAllowAuthorDelete(), 404);
+
+        $user = CommentHelper::getAuthorizedUser();
+
+        abort_unless($user, 403);
+        abort_unless(
+            $comment->author_type === $user::class && $comment->author_id === $user->getKey(),
+            403,
+            trans('plugins/fob-comment::comment.front.delete_not_authorized')
+        );
+
+        $comment->delete();
+
+        return $this
+            ->httpResponse()
+            ->setMessage(trans('plugins/fob-comment::comment.front.comment_deleted_message'));
+    }
+}

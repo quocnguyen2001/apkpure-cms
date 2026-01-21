@@ -1,0 +1,31 @@
+includes:
+    - ./vendor/larastan/larastan/extension.neon
+
+parameters:
+    paths:
+        - platform/
+        - database/seeders/
+
+    excludePaths:
+        analyse:
+            - platform/core/base/src/Supports/PclZip.php
+            - platform/core/base/src/Models/BaseModel.php
+            - platform/packages/slug/src/Providers/SlugServiceProvider.php
+            - platform/plugins/location/src/Providers/LocationServiceProvider.php
+            - platform/plugins/language-advanced/src/Supports/LanguageAdvancedManager.php
+
+    universalObjectCratesClasses:
+        - Illuminate\Database\Eloquent\Model
+        - Botble\Shortcode\Compilers\Shortcode
+
+    treatPhpDocTypesAsCertain: false
+
+    ignoreErrors:
+        - "#Relation 'slugable' is not found in#"
+        - "#withTrashed#"
+        - "#onlyTrashed#"
+        - message: "#Called 'env' outside of the config directory#"
+          paths:
+              - platform/*/*/config/*
+
+    level: 5

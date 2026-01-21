@@ -1,0 +1,322 @@
+$prefix: 'fob-';
+
+// Loading spinner animation
+@keyframes #{$prefix}spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.#{$prefix}spinner {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.5rem;
+    display: inline-block;
+    vertical-align: middle;
+    animation: #{$prefix}spin 1s linear infinite;
+}
+
+.#{$prefix}comment {
+    &-title {
+        font-size: 30px;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+    }
+
+    &-item {
+        &-inner {
+            display: flex;
+            margin-bottom: 2.5rem;
+        }
+
+        &-avatar {
+            margin-inline-end: 20px;
+
+            img {
+                width: 60px;
+                border-radius: 50%;
+            }
+        }
+
+        &-content {
+            width: 100%;
+        }
+
+        &-pending {
+            display: block;
+            color: #5e5e5e;
+            margin-bottom: 0.75em;
+        }
+
+        &-body {
+            p {
+                font-size: 16px;
+                margin-bottom: 0.75rem;
+            }
+        }
+
+        &-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        &-author {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+
+        &-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        &-admin-badge {
+            color: #ffffff;
+            padding: 0.2rem 0.5rem;
+            font-size: 12px;
+            border-radius: 5px;
+        }
+
+        &-date {
+            font-size: 14px;
+            color: #999999;
+            margin-bottom: 0;
+        }
+
+        &-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        &-reply {
+            background-color: transparent;
+            color: #888888;
+            font-size: 14px;
+            display: block;
+            font-weight: 400;
+            border-bottom: 1px solid rgb(225, 225, 225);
+            font-style: italic;
+        }
+
+        &-delete {
+            background-color: transparent;
+            color: #dc3545;
+            font-size: 14px;
+            display: block;
+            font-weight: 400;
+            border-bottom: 1px solid #dc3545;
+            font-style: italic;
+
+            &:hover {
+                color: #bb2d3b;
+                border-color: #bb2d3b;
+            }
+        }
+
+        .#{$prefix}comment-list {
+            margin-inline-start: 2.5rem;
+        }
+    }
+
+    &-form {
+        &-section {
+            margin: 3rem 0;
+        }
+
+        &-note {
+            font-size: 14px;
+            color: #888888;
+            margin-bottom: 1.5rem;
+        }
+
+        &-login-required {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            text-align: center;
+
+            .#{$prefix}comment-login-icon {
+                width: 48px;
+                height: 48px;
+                margin-bottom: 1rem;
+                color: #6c757d;
+            }
+
+            .#{$prefix}comment-login-message {
+                font-size: 16px;
+                color: #495057;
+                margin-bottom: 1rem;
+            }
+
+            .#{$prefix}comment-login-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.5rem 1.5rem;
+                font-size: 14px;
+                font-weight: 500;
+                color: #fff;
+                background-color: var(--fob-primary-color, var(--primary-color, #0d6efd));
+                border: none;
+                border-radius: 6px;
+                text-decoration: none;
+                transition: background-color 0.2s ease;
+
+                &:hover {
+                    background-color: var(--fob-primary-color-hover, var(--primary-color-hover, #0b5ed7));
+                    color: #fff;
+                }
+
+                svg {
+                    width: 16px;
+                    height: 16px;
+                }
+            }
+        }
+
+        label {
+            &.required {
+                &:after {
+                    color: #ff0000;
+                    content: ' *';
+                }
+            }
+        }
+    }
+}
+
+// Skeleton loading animation
+@keyframes #{$prefix}skeleton-pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.4;
+    }
+}
+
+.#{$prefix}comment-skeleton {
+    &-title {
+        height: 30px;
+        width: 200px;
+        background: linear-gradient(90deg, #e8e8e8 25%, #f5f5f5 50%, #e8e8e8 75%);
+        background-size: 200% 100%;
+        border-radius: 4px;
+        margin-bottom: 1.5rem;
+        animation: #{$prefix}skeleton-pulse 1.5s ease-in-out infinite;
+    }
+
+    &-item {
+        display: flex;
+        margin-bottom: 2rem;
+    }
+
+    &-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(90deg, #e8e8e8 25%, #f5f5f5 50%, #e8e8e8 75%);
+        background-size: 200% 100%;
+        margin-inline-end: 20px;
+        flex-shrink: 0;
+        animation: #{$prefix}skeleton-pulse 1.5s ease-in-out infinite;
+    }
+
+    &-content {
+        flex: 1;
+    }
+
+    &-name {
+        height: 18px;
+        width: 120px;
+        background: linear-gradient(90deg, #e8e8e8 25%, #f5f5f5 50%, #e8e8e8 75%);
+        background-size: 200% 100%;
+        border-radius: 4px;
+        margin-bottom: 0.75rem;
+        animation: #{$prefix}skeleton-pulse 1.5s ease-in-out infinite;
+    }
+
+    &-text {
+        height: 14px;
+        width: 100%;
+        background: linear-gradient(90deg, #e8e8e8 25%, #f5f5f5 50%, #e8e8e8 75%);
+        background-size: 200% 100%;
+        border-radius: 4px;
+        margin-bottom: 0.5rem;
+        animation: #{$prefix}skeleton-pulse 1.5s ease-in-out infinite;
+
+        &.short {
+            width: 60%;
+        }
+    }
+}
+
+.#{$prefix}comment-list-loading {
+    padding: 1rem 0;
+}
+
+// Form checkbox and elements primary color
+.#{$prefix}comment-form .form-check-input:checked {
+    background-color: var(--fob-primary-color, var(--primary-color));
+    border-color: var(--fob-primary-color, var(--primary-color));
+}
+
+.#{$prefix}comment-item-admin-badge {
+    background-color: var(--fob-primary-color, var(--primary-color));
+}
+
+// Button loading state
+.#{$prefix}btn-loading {
+    cursor: not-allowed;
+    background-color: var(--fob-primary-color-hover, var(--fob-primary-color, var(--primary-color))) !important;
+    opacity: 0.85;
+}
+
+.cancel-comment-reply-link {
+    font-size: 14px;
+    margin-inline-start: 1rem;
+    text-decoration: underline;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+[data-bs-theme='dark'] {
+    .fob-comment-item-pending {
+        color: #c4c1c1;
+    }
+
+    .fob-comment-skeleton-title,
+    .fob-comment-skeleton-avatar,
+    .fob-comment-skeleton-name,
+    .fob-comment-skeleton-text {
+        background: linear-gradient(90deg, #3a3a3a 25%, #4a4a4a 50%, #3a3a3a 75%);
+        background-size: 200% 100%;
+    }
+
+    .fob-comment-form-login-required {
+        background-color: #2d3748;
+        border-color: #4a5568;
+
+        .fob-comment-login-icon {
+            color: #a0aec0;
+        }
+
+        .fob-comment-login-message {
+            color: #e2e8f0;
+        }
+    }
+}
