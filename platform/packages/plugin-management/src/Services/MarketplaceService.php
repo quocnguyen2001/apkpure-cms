@@ -31,17 +31,17 @@ class MarketplaceService
     {
         $core = Core::make()->getCoreFileData();
 
-        $this->url = $url ?? $core['marketplaceUrl'];
+        $this->url = $url ?? $core['marketplaceUrl'] ?? '';
 
-        $this->token = $token ?? $core['marketplaceToken'];
+        $this->token = $token ?? $core['marketplaceToken'] ?? '';
 
         $this->publishedPath = storage_path('app/marketplace');
 
-        $this->productId = $core['productId'];
+        $this->productId = $core['productId'] ?? '';
 
-        $this->licenseUrl = $core['apiUrl'];
+        $this->licenseUrl = $core['apiUrl'] ?? '';
 
-        $this->licenseApiKey = $core['apiKey'];
+        $this->licenseApiKey = $core['apiKey'] ?? '';
     }
 
     public function callApi(string $method, string $path, array $request = []): JsonResponse|Response

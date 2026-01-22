@@ -73,11 +73,11 @@ final class Core
 
     private string $minimumPhpVersion = '8.2.0';
 
-    private string $licenseUrl = 'https://license.botble.com';
+    private string $licenseUrl = '';
 
-    private string $licenseKey = 'CAF4B17F6D3F656125F9';
+    private string $licenseKey = '';
 
-    private string $cacheLicenseKeyName = '45d0da541764683476f933028d945a46270ba404';
+    private string $cacheLicenseKeyName = '';
 
     private string $skipLicenseReminderFilePath;
 
@@ -125,22 +125,7 @@ final class Core
 
     public function isSkippedLicenseReminder(): bool
     {
-        try {
-            $lastSkipDateTimeString = $this->files->exists($this->skipLicenseReminderFilePath)
-                ? $this->files->get($this->skipLicenseReminderFilePath)
-                : null;
-            $lastSkipDateTimeString = $lastSkipDateTimeString ? decrypt($lastSkipDateTimeString) : null;
-            $lastSkipDate = $lastSkipDateTimeString ? Carbon::parse($lastSkipDateTimeString) : null;
-
-            if ($lastSkipDate instanceof Carbon && Carbon::now()->lessThanOrEqualTo($lastSkipDate)) {
-                return true;
-            }
-
-            $this->clearLicenseReminder();
-        } catch (Throwable) {
-        }
-
-        return false;
+        return true;
     }
 
     public function clearLicenseReminder(): void
@@ -240,38 +225,7 @@ final class Core
 
     public function verifyLicense(bool $timeBasedCheck = false, int $timeoutInSeconds = 300): bool
     {
-        LicenseVerifying::dispatch();
-
-        if (! $this->isLicenseFileExists()) {
-            return false;
-        }
-
-        if ($timeBasedCheck && $this->isLicenseFullyVerified()) {
-            LicenseVerified::dispatch();
-
-            return true;
-        }
-
-        $verified = true;
-
-        if ($timeBasedCheck) {
-            $dateFormat = 'd-m-Y';
-            $cachesKey = "license:{$this->getLicenseCacheKey()}:last_checked_date";
-            $lastCheckedDate = Carbon::createFromFormat(
-                $dateFormat,
-                Session::get($cachesKey, '01-01-1970')
-            )->endOfDay();
-            $now = Carbon::now()->addDays($this->verificationPeriod);
-
-            if ($now->greaterThan($lastCheckedDate) && $verified = $this->verifyLicenseDirectly($timeoutInSeconds)) {
-                Session::put($cachesKey, $now->format($dateFormat));
-                $this->updateLicenseVerificationData();
-            }
-
-            return $verified;
-        }
-
-        return $this->verifyLicenseDirectly($timeoutInSeconds);
+        return true;
     }
 
     public function revokeLicense(string $license, string $client): bool
