@@ -1,0 +1,11 @@
+{
+    "id": "wallis/apkpure-crawler",
+    "name": "Apkpure Crawler",
+    "namespace": "Wallis\\ApkpureCrawler\\",
+    "provider": "Wallis\\ApkpureCrawler\\Providers\\ApkpureCrawlerServiceProvider",
+    "author": "Wallis",
+    "url": "",
+    "version": "1.0.0",
+    "description": "Apkpure crawling and scraping services.",
+    "minimum_core_version": "7.6.0"
+}

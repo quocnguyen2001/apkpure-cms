@@ -11,7 +11,6 @@ use Botble\Base\Events\LicenseRevoked;
 use Botble\Base\Events\LicenseRevoking;
 use Botble\Base\Events\LicenseUnverified;
 use Botble\Base\Events\LicenseVerified;
-use Botble\Base\Events\LicenseVerifying;
 use Botble\Base\Events\SystemUpdateAvailable;
 use Botble\Base\Events\SystemUpdateCachesCleared;
 use Botble\Base\Events\SystemUpdateCachesClearing;
