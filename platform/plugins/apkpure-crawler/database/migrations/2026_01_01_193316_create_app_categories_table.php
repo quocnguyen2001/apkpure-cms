@@ -7,10 +7,9 @@ use Illuminate\Support\Facades\Schema;
 return new class () extends Migration {
     public function up(): void
     {
-        Schema::create('app_categories', function (Blueprint $table): void {
+        Schema::create('ac_app_categories', function (Blueprint $table): void {
             $table->id();
             $table->foreignId('parent_id')->nullable()->index();
-            $table->string('slug')->unique()->index();
             $table->string('name');
             $table->text('description')->nullable();
             $table->text('content')->nullable();
@@ -19,7 +18,16 @@ return new class () extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('app_category', function (Blueprint $table): void {
+        Schema::create('ac_app_categories_translations', function (Blueprint $table): void {
+            $table->string('lang_code', 20);
+            $table->foreignId('app_categories_id');
+            $table->string('description', 400)->nullable();
+            $table->longText('content')->nullable();
+
+            $table->primary(['lang_code', 'app_categories_id'], 'ac_app_categories_translations_primary');
+        });
+
+        Schema::create('ac_app_category', function (Blueprint $table): void {
             $table->foreignId('app_id');
             $table->foreignId('app_category_id');
             $table->primary(['app_id', 'app_category_id']);
@@ -28,7 +36,8 @@ return new class () extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('app_category');
-        Schema::dropIfExists('app_categories');
+        Schema::dropIfExists('ac_app_category');
+        Schema::dropIfExists('ac_app_categories_translations');
+        Schema::dropIfExists('ac_app_categories');
     }
 };

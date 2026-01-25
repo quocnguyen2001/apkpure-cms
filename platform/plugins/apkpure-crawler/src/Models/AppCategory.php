@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property string|int|null $parent_id
- * @property string $slug
  * @property string $name
  * @property string|null $description
  * @property string|null $content
@@ -20,9 +19,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class AppCategory extends AbstractModel
 {
+    protected $table = 'ac_app_categories';
+
     protected $fillable = [
         'parent_id',
-        'slug',
         'name',
         'description',
         'content',
@@ -41,6 +41,6 @@ class AppCategory extends AbstractModel
 
     public function apps(): BelongsToMany
     {
-        return $this->belongsToMany(App::class, 'app_category');
+        return $this->belongsToMany(App::class, 'ac_app_category');
     }
 }

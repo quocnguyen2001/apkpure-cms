@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class () extends Migration {
     public function up(): void
     {
-        Schema::create('app_versions', function (Blueprint $table): void {
+        Schema::create('ac_app_versions', function (Blueprint $table): void {
             $table->id();
             $table->foreignId('app_id')->index();
             $table->string('version');
@@ -20,10 +20,19 @@ return new class () extends Migration {
             $table->foreignId('scrape_ref_id')->index();
             $table->timestamps();
         });
+
+        Schema::create('ac_app_versions_translations', function (Blueprint $table): void {
+            $table->string('lang_code', 20);
+            $table->foreignId('app_versions_id');
+            $table->longText('changelog')->nullable();
+
+            $table->primary(['lang_code', 'app_versions_id'], 'ac_app_versions_translations_primary');
+        });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('app_versions');
+        Schema::dropIfExists('ac_app_versions');
+        Schema::dropIfExists('ac_app_versions_translations');
     }
 };

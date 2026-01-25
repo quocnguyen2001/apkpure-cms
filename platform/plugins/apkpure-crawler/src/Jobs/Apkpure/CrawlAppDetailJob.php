@@ -2,6 +2,7 @@
 
 namespace Wallis\ApkpureCrawler\Jobs\Apkpure;
 
+use Botble\Slug\Facades\SlugHelper;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Wallis\ApkpureCrawler\Models\App;
@@ -26,16 +27,23 @@ final class CrawlAppDetailJob implements ShouldQueue
         $parser = new AppDetailParser();
         $detailData = $parser->parse($scrapedContent->html);
 
-        $developer = Developer::query()->firstOrCreate(
-            ['slug' => $detailData->developer->slug],
-            [
+        $developer = Developer::query()
+            ->whereHas('slugable', function ($query) use ($detailData) {
+                $query->where('key', $detailData->developer->slug);
+            })
+            ->first();
+
+        if (! $developer) {
+            $developer = Developer::query()->create([
                 'name' => $detailData->developer->name,
                 'website' => $detailData->developer->website,
                 'logo' => $detailData->developer->logo,
                 'description' => $detailData->developer->description,
                 'content' => $detailData->developer->content,
-            ]
-        );
+            ]);
+        }
+
+        SlugHelper::createSlug($developer, $detailData->developer->slug);
 
         $images = $detailData->app->images;
         if (is_string($images)) {

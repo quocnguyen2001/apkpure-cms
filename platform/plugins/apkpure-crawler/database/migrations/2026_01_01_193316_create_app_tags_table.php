@@ -7,10 +7,9 @@ use Illuminate\Support\Facades\Schema;
 return new class () extends Migration {
     public function up(): void
     {
-        Schema::create('app_tags', function (Blueprint $table): void {
+        Schema::create('ac_app_tags', function (Blueprint $table): void {
             $table->id();
             $table->string('name');
-            $table->string('slug')->unique()->index();
             $table->text('description')->nullable();
             $table->text('content')->nullable();
             $table->string('logo')->nullable();
@@ -18,7 +17,16 @@ return new class () extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('app_tag', function (Blueprint $table): void {
+        Schema::create('ac_app_tags_translations', function (Blueprint $table): void {
+            $table->string('lang_code', 20);
+            $table->foreignId('app_tags_id');
+            $table->string('description', 400)->nullable();
+            $table->longText('content')->nullable();
+
+            $table->primary(['lang_code', 'app_tags_id'], 'ac_app_tags_translations_primary');
+        });
+
+        Schema::create('ac_app_tag', function (Blueprint $table): void {
             $table->foreignId('app_id');
             $table->foreignId('app_tag_id');
             $table->primary(['app_id', 'app_tag_id']);
@@ -27,7 +35,8 @@ return new class () extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('app_tag');
-        Schema::dropIfExists('app_tags');
+        Schema::dropIfExists('ac_app_tag');
+        Schema::dropIfExists('ac_app_tags_translations');
+        Schema::dropIfExists('ac_app_tags');
     }
 };

@@ -19,6 +19,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class AppVersion extends AbstractModel
 {
+    protected $table = 'ac_app_versions';
+
     protected $fillable = [
         'app_id',
         'version',

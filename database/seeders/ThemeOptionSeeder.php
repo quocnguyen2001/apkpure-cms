@@ -19,9 +19,9 @@ class ThemeOptionSeeder extends BaseSeeder
             'site_title' => 'Just another Botble CMS site',
             'seo_description' => 'With experience, we make sure to get every project done very fast and in time with high quality using our Botble CMS https://1.envato.market/LWRBY',
             'copyright' => '©%Y Your Company. All rights reserved.',
-            'favicon' => $this->filePath('general/favicon.png'),
+            'favicon' => 'general/favicon.png',
             'favicon_type' => 'image/png',
-            'logo' => $this->filePath('general/logo.png'),
+            'logo' => 'general/logo.png',
             'website' => 'https://botble.com',
             'contact_email' => 'support@company.com',
             'site_description' => 'With experience, we make sure to get every project done very fast and in time with high quality using our Botble CMS https://1.envato.market/LWRBY',
@@ -36,7 +36,7 @@ class ThemeOptionSeeder extends BaseSeeder
             'primary_font' => 'Roboto',
             'social_links' => ThemeSupport::getDefaultSocialLinksData(),
             'lazy_load_images' => 1,
-            'lazy_load_placeholder_image' => $this->filePath('general/preloader.gif'),
+            'lazy_load_placeholder_image' => 'general/preloader.gif',
         ]);
     }
 }

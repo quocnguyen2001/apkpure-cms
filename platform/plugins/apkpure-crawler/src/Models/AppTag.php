@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property string $name
- * @property string $slug
  * @property string|null $description
  * @property string|null $content
  * @property string|null $logo
@@ -15,9 +14,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class AppTag extends AbstractModel
 {
+    protected $table = 'ac_app_tags';
+
     protected $fillable = [
         'name',
-        'slug',
         'description',
         'content',
         'logo',
@@ -25,6 +25,6 @@ class AppTag extends AbstractModel
 
     public function apps(): BelongsToMany
     {
-        return $this->belongsToMany(App::class, 'app_tag');
+        return $this->belongsToMany(App::class, 'ac_app_tag');
     }
 }

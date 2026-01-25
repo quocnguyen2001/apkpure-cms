@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class () extends Migration {
     public function up(): void
     {
-        Schema::create('apps', function (Blueprint $table): void {
+        Schema::create('ac_apps', function (Blueprint $table): void {
             $table->id();
             $table->string('name');
             $table->string('logo')->nullable();
@@ -23,10 +23,20 @@ return new class () extends Migration {
             $table->foreignId('developer_id')->index();
             $table->timestamps();
         });
+
+        Schema::create('ac_apps_translations', function (Blueprint $table): void {
+            $table->string('lang_code', 20);
+            $table->foreignId('apps_id');
+            $table->string('description', 400)->nullable();
+            $table->longText('content')->nullable();
+
+            $table->primary(['lang_code', 'apps_id'], 'ac_apps_translations_primary');
+        });
     }
 
     public function down(): void
     {
         Schema::dropIfExists('apps');
+        Schema::dropIfExists('ac_apps');
     }
 };

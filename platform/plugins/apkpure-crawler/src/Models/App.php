@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Wallis\ApkpureCrawler\Enums\AppPlatformEnum;
 
 /**
  * @property string $name
@@ -16,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string|null $content
  * @property string|null $requires_android_os
  * @property CarbonInterface|null $lasted_update
- * @property string $platform
+ * @property AppPlatformEnum|string $platform
  * @property string|null $google_play
  * @property string|int|null $lasted_version_id
  * @property string|int|null $scrape_ref_id
@@ -29,6 +30,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class App extends AbstractModel
 {
+    protected $table = 'ac_apps';
+
     protected $fillable = [
         'name',
         'logo',
@@ -49,6 +52,7 @@ class App extends AbstractModel
         return [
             'lasted_update' => 'date',
             'images' => 'array',
+            'platform' => AppPlatformEnum::class,
         ];
     }
 
@@ -69,11 +73,11 @@ class App extends AbstractModel
 
     public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(AppCategory::class, 'app_category');
+        return $this->belongsToMany(AppCategory::class, 'ac_app_category');
     }
 
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(AppTag::class, 'app_tag');
+        return $this->belongsToMany(AppTag::class, 'ac_app_tag');
     }
 }
