@@ -1,0 +1,71 @@
+// APKPure Color Variables - Official Colors
+$primary-blue: #4087f7;
+$primary-blue-dark: #3070d0;
+$primary-blue-light: #4696f9;
+$success-green: #24cd77;
+$warning-orange: #ffa800;
+$star-orange: #fa8b15;
+$error-pink: #ff5577;
+$purple: #a265e3;
+$gradient-blue: #667cfe;
+$gradient-purple: #d2a6ff;
+
+// Neutral Colors
+$text-primary: rgba(0, 0, 0, 0.87);
+$text-secondary: rgba(0, 0, 0, 0.7);
+$text-tertiary: rgba(0, 0, 0, 0.54);
+$text-disabled: rgba(0, 0, 0, 0.38);
+$text-hint: rgba(0, 0, 0, 0.24);
+
+$background-page: #f9fafb;
+$background-white: #ffffff;
+$border-color: #eceff1;
+$border-light: rgba(0, 0, 0, 0.08);
+$shadow-color: rgba(0, 0, 0, 0.1);
+
+// Typography
+$font-family-primary: 'GB Museo Sans', Helvetica, Arial, sans-serif;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+$font-size-xs: 11px;
+$font-size-sm: 12px;
+$font-size-base: 14px;
+$font-size-md: 16px;
+$font-size-lg: 18px;
+$font-size-xl: 20px;
+$font-size-2xl: 24px;
+$font-size-3xl: 28px;
+$font-size-4xl: 32px;
+
+// Spacing
+$spacing-1: 4px;
+$spacing-2: 8px;
+$spacing-3: 12px;
+$spacing-4: 16px;
+$spacing-5: 20px;
+$spacing-6: 24px;
+$spacing-8: 32px;
+$spacing-10: 40px;
+$spacing-12: 48px;
+
+// Border Radius
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 12px;
+$radius-xl: 16px;
+$radius-2xl: 20px;
+$radius-full: 9999px;
+
+// Breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 720px;
+$breakpoint-lg: 996px;
+$breakpoint-xl: 1280px;
+
+// Layout
+$header-height-mobile: 56px;
+$header-height-desktop: 64px;
+$container-max-width: 1280px;
+$sidebar-width: 300px;

@@ -1,0 +1,301 @@
+@import 'variables';
+
+// App Header
+.app-header {
+  display: flex;
+  gap: $spacing-lg;
+  padding: $spacing-lg;
+  background-color: $background-white;
+  border-radius: $border-radius-lg;
+  margin-bottom: $spacing-lg;
+  border: 1px solid $border-color;
+
+  &__icon {
+    width: 128px;
+    height: 128px;
+    border-radius: $border-radius-xl;
+    overflow: hidden;
+    flex-shrink: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__info {
+    flex: 1;
+  }
+
+  &__title {
+    font-size: 28px;
+    font-weight: 700;
+    color: $text-dark;
+    margin-bottom: $spacing-xs;
+  }
+
+  &__developer {
+    font-size: $font-size-base;
+    color: $primary-green;
+    margin-bottom: $spacing-sm;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: $spacing-lg;
+    margin-bottom: $spacing-md;
+  }
+
+  &__rating {
+    display: flex;
+    align-items: center;
+    gap: $spacing-xs;
+  }
+
+  &__star {
+    color: #ffc107;
+    font-size: $font-size-medium;
+
+    &--half {
+      color: $border-color;
+    }
+  }
+
+  &__rating-value {
+    font-weight: 700;
+    color: $text-dark;
+    margin-left: $spacing-xs;
+  }
+
+  &__reviews {
+    font-size: $font-size-small;
+    color: $text-light;
+  }
+
+  &__downloads {
+    font-size: $font-size-base;
+    color: $text-medium;
+  }
+
+  &__actions {
+    display: flex;
+    gap: $spacing-sm;
+  }
+}
+
+// Screenshots
+.app-screenshots {
+  background-color: $background-white;
+  border-radius: $border-radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-lg;
+  border: 1px solid $border-color;
+
+  &__gallery {
+    display: flex;
+    gap: $spacing-md;
+    overflow-x: auto;
+    padding-bottom: $spacing-sm;
+
+    &::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $border-color;
+      border-radius: 2px;
+    }
+  }
+
+  &__item {
+    flex-shrink: 0;
+    width: 280px;
+    height: 160px;
+    border-radius: $border-radius-md;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+// Description
+.app-description {
+  background-color: $background-white;
+  border-radius: $border-radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-lg;
+  border: 1px solid $border-color;
+
+  &__content {
+    font-size: $font-size-base;
+    line-height: 1.7;
+    color: #444444;
+
+    p {
+      margin-bottom: $spacing-md;
+    }
+
+    h3 {
+      font-size: $font-size-medium;
+      font-weight: 600;
+      color: $text-dark;
+      margin-bottom: $spacing-sm;
+      margin-top: 20px;
+    }
+
+    ul {
+      list-style: disc;
+      padding-left: $spacing-lg;
+      margin-bottom: $spacing-md;
+    }
+
+    li {
+      margin-bottom: $spacing-sm;
+    }
+  }
+}
+
+// App Info Section
+.app-info-section {
+  background-color: $background-white;
+  border-radius: $border-radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-lg;
+  border: 1px solid $border-color;
+}
+
+.app-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-md;
+}
+
+.app-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+
+  &__label {
+    font-size: $font-size-small;
+    color: $text-light;
+    text-transform: uppercase;
+  }
+
+  &__value {
+    font-size: $font-size-base;
+    font-weight: 500;
+    color: $text-dark;
+  }
+}
+
+// Reviews
+.app-reviews {
+  background-color: $background-white;
+  border-radius: $border-radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-lg;
+  border: 1px solid $border-color;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+  }
+}
+
+.review-card {
+  padding: $spacing-md;
+  background-color: $background-light;
+  border-radius: $border-radius-md;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    margin-bottom: $spacing-sm;
+  }
+
+  &__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: $primary-green;
+    color: $background-white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: $font-size-base;
+  }
+
+  &__info {
+    flex: 1;
+  }
+
+  &__name {
+    font-weight: 600;
+    font-size: $font-size-base;
+    color: $text-dark;
+    margin-bottom: 2px;
+  }
+
+  &__rating {
+    color: #ffc107;
+    font-size: $font-size-small;
+  }
+
+  &__date {
+    font-size: $font-size-small;
+    color: $text-light;
+  }
+
+  &__content {
+    font-size: $font-size-base;
+    line-height: 1.6;
+    color: #444444;
+  }
+}
+
+// Responsive
+@media (max-width: $breakpoint-md) {
+  .app-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    &__meta {
+      flex-direction: column;
+      gap: $spacing-sm;
+    }
+
+    &__actions {
+      flex-direction: column;
+      width: 100%;
+
+      .btn {
+        width: 100%;
+      }
+    }
+  }
+
+  .app-info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .app-screenshots__item {
+    width: 200px;
+    height: 120px;
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .app-info-grid {
+    grid-template-columns: 1fr;
+  }
+}

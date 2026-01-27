@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" width="1200" height="300">
+  <defs>
+    <linearGradient id="bannerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a4c639;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8ab326;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="300" fill="url(#bannerGrad)"/>
+  <!-- Decorative circles -->
+  <circle cx="100" cy="50" r="80" fill="#fff" opacity="0.1"/>
+  <circle cx="1100" cy="250" r="120" fill="#fff" opacity="0.1"/>
+  <circle cx="600" cy="150" r="200" fill="#fff" opacity="0.05"/>
+  <!-- Phone mockup -->
+  <rect x="900" y="50" width="120" height="220" rx="16" fill="#333"/>
+  <rect x="910" y="70" width="100" height="180" rx="4" fill="#fff"/>
+  <rect x="920" y="80" width="80" height="40" rx="4" fill="#a4c639"/>
+  <rect x="920" y="130" width="80" height="8" rx="2" fill="#e0e0e0"/>
+  <rect x="920" y="145" width="60" height="6" rx="2" fill="#e0e0e0"/>
+  <rect x="920" y="160" width="80" height="24" rx="4" fill="#a4c639"/>
+</svg>

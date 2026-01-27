@@ -1,0 +1,284 @@
+@import 'variables';
+
+/* App Versions Page Styles - APKPure Design */
+
+/* App Mini Header */
+.versions-app-header {
+  display: flex;
+  align-items: center;
+  gap: $spacing-4;
+  padding: $spacing-5;
+  background-color: $background-white;
+  border-radius: $radius-lg;
+  margin-bottom: $spacing-4;
+}
+
+.versions-app-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: $radius-xl;
+  box-shadow: 0 2px 8px $shadow-color;
+}
+
+.versions-app-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.versions-app-title {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $text-primary;
+  margin-bottom: $spacing-1;
+}
+
+.versions-app-developer {
+  font-size: $font-size-base;
+  color: $success-green;
+  font-weight: $font-weight-medium;
+}
+
+/* Download Latest Button */
+.versions-download-latest {
+  margin-bottom: $spacing-5;
+}
+
+.download-latest-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 24px;
+  background-color: $success-green;
+  color: #fff;
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  border-radius: $radius-lg;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: darken($success-green, 10%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba($success-green, 0.3);
+  }
+
+  .download-icon {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* Versions Content */
+.versions-content {
+  background-color: $background-white;
+  border-radius: $radius-lg;
+  padding: $spacing-5;
+}
+
+.versions-title {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $text-primary;
+  margin-bottom: $spacing-4;
+  padding-bottom: $spacing-4;
+  border-bottom: 1px solid $border-color;
+}
+
+/* Versions List Full */
+.versions-list-full {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ver-item-wrap {
+  border-bottom: 1px solid $border-color;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.ver-download-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-4 0;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: $background-page;
+    margin: 0 -#{$spacing-5};
+    padding-left: $spacing-5;
+    padding-right: $spacing-5;
+  }
+}
+
+.ver-item {
+  flex: 1;
+  min-width: 0;
+}
+
+.ver-item-name {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  margin-bottom: $spacing-2;
+  flex-wrap: wrap;
+
+  .name {
+    font-size: 15px;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+  }
+
+  .version {
+    font-size: 15px;
+    font-weight: $font-weight-medium;
+    color: $text-secondary;
+  }
+}
+
+.variant-badge {
+  padding: 2px 8px;
+  background-color: rgba($primary-blue, 0.1);
+  color: $primary-blue;
+  font-size: 11px;
+  font-weight: $font-weight-medium;
+  border-radius: 10px;
+}
+
+.ver-item-info {
+  display: flex;
+  align-items: center;
+  gap: $spacing-4;
+}
+
+.ver-size,
+.ver-date {
+  font-size: 13px;
+  color: $text-tertiary;
+}
+
+.ver-download-btn {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: 10px 18px;
+  background-color: $success-green;
+  color: #fff;
+  font-size: 13px;
+  font-weight: $font-weight-medium;
+  border-radius: $radius-2xl;
+  flex-shrink: 0;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: darken($success-green, 10%);
+  }
+}
+
+.icon-download {
+  width: 14px;
+  height: 14px;
+}
+
+/* Load More */
+.load-more-wrap {
+  margin-top: $spacing-5;
+  text-align: center;
+}
+
+.load-more-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-3 $spacing-8;
+  background-color: $background-page;
+  color: $text-secondary;
+  font-size: $font-size-base;
+  font-weight: $font-weight-medium;
+  border: 1px solid $border-color;
+  border-radius: $radius-full;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: $background-white;
+    border-color: $success-green;
+    color: $success-green;
+  }
+}
+
+/* Sidebar Info */
+.app-info-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: $spacing-3;
+  border-bottom: 1px solid $border-color;
+
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .info-label {
+    font-size: 13px;
+    color: $text-tertiary;
+  }
+
+  .info-value {
+    font-size: 13px;
+    font-weight: $font-weight-medium;
+    color: $text-primary;
+  }
+}
+
+/* Responsive */
+@media (max-width: $breakpoint-md) {
+  .versions-app-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .ver-download-link {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $spacing-3;
+  }
+
+  .ver-download-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .ver-item-info {
+    flex-wrap: wrap;
+    gap: $spacing-2;
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .versions-app-title {
+    font-size: $font-size-lg;
+  }
+
+  .ver-item-name {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $spacing-1;
+
+    .name,
+    .version {
+      font-size: $font-size-base;
+    }
+  }
+}
