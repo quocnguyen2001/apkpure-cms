@@ -4,6 +4,9 @@ description: "Complete theme implementation for APKPure CMS with app/game listin
 status: in-progress
 priority: P1
 effort: 16h
+progress: "25%"
+completed-phases: 2
+total-phases: 8
 branch: main
 tags: [theme, frontend, botble-cms, apkpure]
 created: 2026-01-27
@@ -20,7 +23,7 @@ Implement `platform/themes/apkpure` theme consuming data from `apkpure-crawler` 
 | Phase | Description | Effort | Status |
 |-------|-------------|--------|--------|
 | 1 | [Foundation & Configuration](./phase-01-foundation.md) | 2h | done (2026-01-27) |
-| 2 | [Layouts & Partials](./phase-02-layouts.md) | 2h | pending |
+| 2 | [Layouts & Partials](./phase-02-layouts.md) | 2h | done (2026-01-27) |
 | 3 | [Homepage Implementation](./phase-03-homepage.md) | 2.5h | pending |
 | 4 | [Apps/Games Listing](./phase-04-listings.md) | 2h | pending |
 | 5 | [App Detail Page](./phase-05-app-detail.md) | 2.5h | pending |
@@ -152,3 +155,18 @@ $games = App::whereHas('categories', fn($q) => $q->where('name', 'Games'))->get(
 - SCSS source files created (_variables.scss, app-detail.scss, app-versions.scss, main.scss)
 
 **Status:** DONE - Foundation layer ready for Phase 2 layout work
+
+## Phase 2 Completion (2026-01-27)
+
+**Completed Tasks:**
+- layouts/default.blade.php - Master layout with @yield sections for header, content, footer
+- partials/header.blade.php - Navigation, search bar, user menu, app categories
+- partials/footer.blade.php - 4-column footer with links and social media icons
+- partials/breadcrumbs.blade.php - Dynamic breadcrumb navigation with schema markup
+- partials/sidebar/apkpure-app-widget.blade.php - Featured app widget
+- partials/sidebar/top-downloads.blade.php - Top 5 downloads sidebar
+- partials/sidebar/trending-games.blade.php - Trending games widget
+- routes/web.php - Route definitions for all major pages
+- ApkpureController.php - Request handlers with CSRF/security fixes and proper error handling
+
+**Status:** DONE - Layout infrastructure and route handlers ready for Phase 3 homepage implementation

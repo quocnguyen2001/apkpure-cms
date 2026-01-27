@@ -1,73 +1,75 @@
-        <footer class="bg-dark text-white mt-5 py-4">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <h5>{{ __('About Us') }}</h5>
-                        <p class="text-white-50">{{ __('Your website description goes here. Configure in Admin → Appearance → Theme options.') }}</p>
-
-                        @if ($socialLinks = Theme::getSocialLinks())
-                            <div class="d-flex gap-2">
-                                @foreach($socialLinks as $socialLink)
-                                    @continue(! $icon = $socialLink->getIconHtml())
-
-                                    <a {{ $socialLink->getAttributes() }} class="text-white-50">
-                                        {!! $icon !!}
-                                    </a>
-                                @endforeach
-                            </div>
-                        @endif
-                    </div>
-
-                    <div class="col-md-4 mb-3">
-                        <h5>{{ __('Quick Links') }}</h5>
-                        <ul>
-                            <li><a href="/about" class="text-white-50 text-decoration-none">{{ __('About Us') }}</a></li>
-                            <li><a href="/services" class="text-white-50 text-decoration-none">{{ __('Services') }}</a></li>
-                            <li><a href="/contact" class="text-white-50 text-decoration-none">{{ __('Contact') }}</a></li>
-                            <li><a href="/blog" class="text-white-50 text-decoration-none">{{ __('Blog') }}</a></li>
-                            <li><a href="/faq" class="text-white-50 text-decoration-none">{{ __('FAQ') }}</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="col-md-4 mb-3">
-                        <h5>{{ __('Contact') }}</h5>
-                        <p class="mb-1">
-                            <x-core::icon name="mail" />
-                            <a href="mailto:contact@example.com" class="text-white-50 text-decoration-none">
-                                contact@example.com
-                            </a>
-                        </p>
-                        <p class="mb-1">
-                            <x-core::icon name="phone" />
-                            <a href="tel:0342234333" class="text-white-50 text-decoration-none">
-                                0342234333
-                            </a>
-                        </p>
-
-                        <p class="mb-1 text-white-50">
-                            <x-core::icon name="map-pin" />
-                            {{ __('123 Main Street, City, Country') }}
-                        </p>
-                    </div>
-                </div>
-
-                <hr class="border-secondary">
-                <div class="row">
-                    <div class="col-md-6">
-                        @if ($copyright = Theme::getSiteCopyright())
-                            <p class="mb-0 text-white-50">{!! $copyright !!}</p>
-                        @else
-                            <p class="mb-0 text-white-50">{{ __('© :year YourCompany. All rights reserved.', ['year' => date('Y')]) }}</p>
-                        @endif
-                    </div>
-                    <div class="col-md-6 text-md-end">
-                        <a href="/privacy-policy" class="text-white-50 text-decoration-none me-2">{{ __('Privacy') }}</a>
-                        <a href="/terms-of-service" class="text-white-50 text-decoration-none">{{ __('Terms') }}</a>
-                    </div>
-                </div>
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-columns">
+            {{-- Follow Us --}}
+            <div class="item">
+                <div class="title">{{ __('Follow Us') }}</div>
+                <ul class="social-list">
+                    @if ($socialLinks = Theme::getSocialLinks())
+                        @foreach($socialLinks as $socialLink)
+                            @php
+                                $socialClass = strtolower($socialLink->social_name ?? 'link');
+                                $socialUrl = $socialLink->social_url ?? '#';
+                                // Validate URL protocol - only allow http/https
+                                $isValidUrl = preg_match('/^https?:\/\//i', $socialUrl);
+                            @endphp
+                            @if($isValidUrl)
+                                <li><a href="{{ $socialUrl }}" class="social-link {{ e($socialClass) }}" title="{{ $socialLink->social_name }}" target="_blank" rel="noopener noreferrer"></a></li>
+                            @endif
+                        @endforeach
+                    @else
+                        <li><a href="#" class="social-link facebook" title="Facebook"></a></li>
+                        <li><a href="#" class="social-link twitter" title="Twitter"></a></li>
+                        <li><a href="#" class="social-link youtube" title="YouTube"></a></li>
+                        <li><a href="#" class="social-link instagram" title="Instagram"></a></li>
+                    @endif
+                </ul>
             </div>
-        </footer>
 
-        {!! Theme::footer() !!}
-    </body>
-</html>
+            {{-- Service --}}
+            <div class="item">
+                <div class="title">{{ __('Service') }}</div>
+                <ul>
+                    <li><a href="{{ url('/apk-install') }}">{{ __('APK Install') }}</a></li>
+                    <li><a href="{{ url('/signature-verification') }}">{{ __('APK Signature Verification') }}</a></li>
+                    <li><a href="{{ url('/download-service') }}">{{ __('APK Download Service') }}</a></li>
+                </ul>
+            </div>
+
+            {{-- Developers --}}
+            <div class="item">
+                <div class="title">{{ __('Developers') }}</div>
+                <ul>
+                    <li><a href="{{ url('/developer-console') }}">{{ __('Developer Console') }}</a></li>
+                    <li><a href="{{ url('/submit-apk') }}">{{ __('Submit APK') }}</a></li>
+                </ul>
+            </div>
+
+            {{-- Company --}}
+            <div class="item">
+                <div class="title">{{ __('Company') }}</div>
+                <ul>
+                    <li><a href="{{ url('/about') }}">{{ __('About Us') }}</a></li>
+                    <li><a href="{{ url('/contact') }}">{{ __('Contact Us') }}</a></li>
+                    <li><a href="{{ url('/support') }}">{{ __('Support Center') }}</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="other">
+            <div class="info">
+                @if ($copyright = Theme::getSiteCopyright())
+                    {{-- Note: getSiteCopyright returns admin-controlled HTML, treated as trusted --}}
+                    {!! BaseHelper::clean($copyright) !!}
+                @else
+                    {{ __('Copyright') }} &copy; 2014-{{ date('Y') }} {{ theme_option('site_title', 'APKPure') }} {{ __('All rights reserved.') }}
+                @endif
+                | <a href="{{ url('/privacy-policy') }}">{{ __('Privacy Policy') }}</a>
+                | <a href="{{ url('/terms') }}">{{ __('Terms') }}</a>
+            </div>
+            <div class="current_box">
+                <div class="current_lang">{{ strtoupper(app()->getLocale()) }}</div>
+            </div>
+        </div>
+    </div>
+</footer>

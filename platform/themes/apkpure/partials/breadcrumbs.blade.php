@@ -1,17 +1,18 @@
 @if (Theme::breadcrumb()->getCrumbs())
-    <nav aria-label="{{ __('Breadcrumb') }}">
-        <ol class="breadcrumb">
-            @foreach (Theme::breadcrumb()->getCrumbs() as $i => $crumb)
-                @if ($crumb['label'])
-                    <li class="breadcrumb-item {{ $loop->last ? 'active' : '' }}">
+    <div class="breadcrumb-wrap">
+        <div class="breadcrumb-container">
+            <nav class="breadcrumb" aria-label="{{ __('Breadcrumb') }}">
+                @foreach (Theme::breadcrumb()->getCrumbs() as $crumb)
+                    @if ($crumb['label'])
                         @if (!$loop->last && $crumb['url'])
-                            <a href="{{ $crumb['url'] }}">{{ $crumb['label'] }}</a>
+                            <a href="{{ $crumb['url'] }}" class="breadcrumb-item">{{ $crumb['label'] }}</a>
+                            <span class="separator">/</span>
                         @else
-                            {{ $crumb['label'] }}
+                            <span class="breadcrumb-item current">{{ $crumb['label'] }}</span>
                         @endif
-                    </li>
-                @endif
-            @endforeach
-        </ol>
-    </nav>
+                    @endif
+                @endforeach
+            </nav>
+        </div>
+    </div>
 @endif
